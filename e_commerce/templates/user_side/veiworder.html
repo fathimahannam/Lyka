@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Orders</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: rosybrown;
+		}
+		.container {
+			margin: 20px auto;
+			max-width: 900px;
+			/* background-color: rgb(10 2 49); */
+			padding: 20px;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(18, 176, 0, 0.1);
+		}
+		h1 {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 20px;
+		}
+		th, td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			/* background-color: rgb(10 2 49); */
+			font-weight: bold;
+		}
+		.order-status {
+			display: inline-block;
+			padding: 5px 10px;
+			border-radius: 5px;
+			font-size: 14px;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+		.order-placed {
+			background-color: #eaf7ea;
+			color: #008000;
+		}
+		.order-shipped {
+			background-color: #eaf7ea;
+			color: #008000;
+		}
+		.order-delivered {
+			background-color: #f5f5f5;
+			color: #666666;
+		}
+			.order-cancelled {
+			background-color: #f5f5f5;
+			color: #666666;
+		}
+	</style>
+</head>
+<body style="background-color: rosybrown;">
+	<div class="container" >
+		<h1>My Orders</h1>
+		<table >
+			<thead>
+				<tr>
+					<th>Orders</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total Amount</th>
+					<th>Status</th>
+					<th>action</th>
+					<th>view</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in ordered_items %}
+
+				<tr>
+					
+					<td>{{ item.product }}</td>
+					<td>{{ item.item_price }}</td>
+					<td>{{ item.quantity }}</td>
+					<td>{{ item.item_total }}</td>
+					<td>
+						{% if item.order_status == 'Ordered' %}
+						<span class="order-status order-placed">{{ item.order_status }}</span>
+						{% elif item.order_status == 'Shipped' %}
+						<span class="order-status order-shipped">{{ item.order_status }}</span>
+						{% elif item.order_status == 'Delivered' %}
+						<span class="order-status order-delivered">{{ item.order_status }}</span>
+                        {% elif item.order_status == 'Cancelled' %}
+						<span class="order-status order-cancelled">{{ item.order_status }}</span>
+						{% endif %}
+					</td>
+					<td><a href="{% url 'view'  %}">view</a></td>
+					<td><a href="">cancel</a></td>
+
+
+
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
+{% endblock content %}

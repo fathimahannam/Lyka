@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+  ...
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
+  ...
+</head>
+
+{% block content %}
+  
+<!-- content -->
+<section class="py-5">
+  <div class="container">
+    <div class="row gx-5">
+      <aside class="col-lg-4">
+        
+          <div class="xzoom-container">
+            <img class="xzoom" width="100%" height="350px"  id="xzoom-default" src="{{pro.images1.url}}" xoriginal="{{pro.images1.url}}" />
+          </div>
+         
+        
+        <div class="product-thumbnails">
+          <div class="row mt-3">
+            {% for img in multipleimg %}
+            <div class="col-3">
+             
+            {% endfor %}
+          </div>
+        </div>
+      </aside>
+      <main class="col-lg-6">
+        <div class="ps-lg-3">
+          <div class="d-flex flex-row my-3">
+            <div class="text-warning mb-1 me-2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span class="ms-1">
+              </span>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <span class="h4" style="font-weight:lighter;">{{pro.product_name}}</span>
+            
+          </div>
+
+          <p>
+            {{pro.description}}
+          </p>
+
+          <div class="mb-3">
+            <span class="h4" style="font-weight: bold;">MRP:{{pro.price}}</span>
+            <dd class="col-9">Includes all taxes</dd>
+          </div>
+
+          <div class="row">
+            <dt class="col-3">Type:</dt>
+            <dd class="col-9">Regular</dd>
+
+            <dt class="col-3">Brand</dt>
+            <dd class="col-9">Perfume</dd>
+          </div>
+
+          <hr />
+
+          <div class="row mb-4">
+            
+            <!-- col.// -->
+            <div class="col-md-4 col-6 mb-3">
+             
+                
+            </div>
+          </div>
+          <a href="{% url 'checkout' %}" class="btn btn-warning shadow-0"> Buy now </a>
+          <a href="{% url 'add_to_cart' pro.id %}?id={{pro.id}}" class="btn btn-primary shadow-0" style="background-color:black ;"> <
+                          <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
+
+            </div>
+        </main>
+        
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://payalord.github.io/xZoom/js/vendor/jquery.js"></script>
+  <script type="text/javascript" src="https://payalord.github.io/xZoom/source/js/xzoom.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://payalord.github.io/xZoom/css/xzoom.css" media="all" /> 
+  <script type="text/javascript" src="https://payalord.github.io/xZoom/js/setup.js"></script>
+
+
+{% endblock %}

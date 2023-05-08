@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+  {% comment %} {% endfor %} {% endcomment %}
+  <div class="checkout-container d-flex justify-content-center  d-flex ">
+    {% comment %} {% if message %}
+    <p>{{ message }}</p>
+    {% else %} {% endcomment %}
+   
+    <section class="checkout spad container-fluid">
+        
+        <form class="contact_form" action="{% url 'checkout'  %}" method="POST">
+            {% csrf_token %}
+        <div class="row">
+            
+            <div class="col-lg-6">
+               
+                    <h4 class="font-weight-bold mt-0 mb-4 ml-2 text-center mx-auto">Select your Delivery Address</h4>
+          
+                    {% for x in addresses %}
+                        <div class="container">
+                            <div class="card shadow my-2 col-lg-12">
+                                <div class="card-body d-flex justify-content-between" >
+                                    <input id="{{x.id}}" name="address" onclick="changeAddress(this)" type="radio" value="{{x.id}}" required   >
+                                    <div style="display: flex; justify-content:space-between ;" >
+                                        <p>{{ address.first_name }},&nbsp;</p>
+                                        <p>{{ x.x_line_1 }}</p>
+                                        <p>{{ x.order_x }} ,&nbsp;</p>
+                                        <p>{{ x.city }} ,&nbsp; {{ x.state }},&nbsp;</p>  
+                                        <p>{{ x.phone }},&nbsp;</p>
+                                        <p>{{ x.zip_code }},&nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div>
+                        <a href="{% url 'add_address' %}" class="btn btn-link">+ Add Address</a>
+                    </div>
+               
+            </div>
+           
+            <div class="col-lg-6">
+                <div class="checkout__order">
+                    {% csrf_token %}
+                    <h5 style="text-align: center;font-weight: bolder; font-size: larger; color: blue; ">Your order</h5>
+                    <div class="checkout_order_product">
+                        <ul class="list">
+                            <li class="d-flex justify-content-between">Product <span>Quantity</span><span>Total</span></li>
+                            {% for item in cart_items %}
+                            <li style="color: crimson;" class="d-flex justify-content-between"> {{ item.product.product_name }}<br><span class="middle">x {{item.quantity}}</span> <span class="last">₹{{item.product.price}}</span></li>
+                            {% endfor %}
+                          
+                        </ul>
+                        
+                    </div>
+                                    
+                    <div class="checkout_order_total">
+                        <ul>
+                            
+                            
+                            <li class="d-flex justify-content-between">Total <span >Rs.{{cart.get_cart_total}}</span></a></li>
+                            <input type="hidden" name="amountToBePaid" value="{{ totalval }}">
+                        </ul>
+                    </div>
+                    
+                    <div class="checkout_order_widget">
+                        <p><p>  
+                        <h4>Grand Total :<span>Rs.{{cart.get_cart_total}}</span></h4>
+    
+                        <hr>
+                        <div class="text-center">
+                            <button type="submit" id="rzp-button1" class="btn btn-dark flex-c-m size-116 bor14 p-lr-15">PlaceOrder</button>
+                        
+                        <!-- <button type="button" class="btn btn-primary">Cash on Delivery</button> -->
+                    </div>
+                        <!-- <button id="rzp-button1" class="" name="submit"  type="submit" ></button> -->
+                        <hr>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+       
+       
+    </div>
+  
+   
+</section>
+
+
+<!-- Checkout Section End -->
+
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {% if msg %}
+  <script>
+    console.log("here");
+    swal("Message !", "{{msg}}", "info");
+  
+  </script>
+  {% endif %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+let Address;
+
+function changeAddress(el){
+    Address = el.value
+}
+
+var options = {
+    "key": 'rzp_test_7SGlufdnBNK7z5', // Enter the Key ID generated from the Dashboard
+    "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "{{user.name}} ",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    handler: function (response) {
+        
+
+    const successUrl = `/checkout/success/?address=${Address}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}`;
+    console.log(successUrl)
+    window.location.href = successUrl;
+
+
+
+
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        
+    },
+  
+};
+
+
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        // alert(response.error.code);
+        // alert(response.error.description);
+        // alert(response.error.source);
+        // alert(response.error.step);
+        // alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+
+function get_address(){
+    try {
+      var method = document.querySelector('input[name="address"]:checked').getAttribute('id')
+      console.log('lsjflkdjfkdlsf',method)
+    }
+    catch {
+      var method = null
+    }
+    return method
+  }
+
+document.getElementById('rzp-button1').onclick = function(e){
+    e.preventDefault();
+    var address = get_address()
+    if (!address){
+      alert('should select address')
+      return;
+    }
+    rzp1.open();
+}
+
+
+
+</script>
+{% endblock  %}
+    <!-- Checkout Section End -->

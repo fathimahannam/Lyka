@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Payment Template</title>
+	<!-- Add your stylesheets here -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		integrity="sha512-M5Z+g5wkOo5W5q3jJccmHaH5o7lz8gceRjKv1/sA+SZDbx5yr5o5Gr5ErKjNddSicnAZ/+e8zjKX9Np4u4fE4Q=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+		/* Add your custom styles here */
+	</style>
+</head>
+<body>
+	<div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title text-center mb-4">Payment Details</h3>
+                <form>
+                  <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="cardNumber" placeholder="Enter your card number" required>
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i class="fab fa-cc-visa"></i>
+                          <i class="fab fa-cc-mastercard"></i>
+                          <i class="fab fa-cc-amex"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cardName">Cardholder Name</label>
+                    <input type="text" class="form-control" id="cardName" placeholder="Enter the name on your card" required>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" class="form-control" id="expiryDate" placeholder="MM / YY" required>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv" placeholder="Enter the 3-digit code on the back" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                      </div>
+                      <input type="number" class="form-control" id="amount" placeholder="Enter the amount to pay" required>
+                    </div>
+                  </div>
+
+                  <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Submit Payment</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      

@@ -1,0 +1,33 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block text %}
+
+<table class="table table-hover ">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in prodect %}
+      <tr>
+        
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.product_name}}</td>
+        <td><a href="{% url 'updateproduct' i.id %}"><button style="background-color: yellowgreen;border-color: yellowgreen;">Edit</button></a></td>
+        <td><a href="{% url 'deleteproduct' i.id %}" 
+          onclick="return confirm('Are You Sure?')"><button style= "background-color: red;border-color: yellowgreen;" >Delete</button></a></td>
+
+      
+      
+      </tr>
+      
+      {%endfor%}
+    </tbody>
+  </table>
+
+
+{% endblock text %}

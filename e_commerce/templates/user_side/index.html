@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="banner_section layout_padding">
+   <div class="container">
+      <div id="my_slider" class="carousel slide" data-ride="carousel">
+         <div class="carousel-inner">
+            <div class="carousel-item active">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <h1 class="banner_taital" style="color:rgb(0, 0, 0) ;">Get Start <br>Your favriot shoping</h1>
+                     <div class="buynow_bt" ><a href="{% url 'product' %}">Buy Now</a></div>
+                  </div>
+                  
+               </div>
+               <br><br>
+               
+            </div>
+
+              
+      </div>
+      <img style=" width:100% ;" src="https://sokilondon.com/wp-content/uploads/2022/10/Chanel-chance-2-e1666042654359-1440x1022.png?ezimgfmt=rs:320x227/rscb5/ngcb5/notWebP" alt=""> <br><br><br><br><br>
+              <img style="width: 100%;" src="https://image.crov.com/cbi-WqvjbUJUVKDB/best-dropship-perfume-suppliers-in-the-us.jpg" alt="">
+   </div>
+   
+</div>
+     
+      <!-- fashion section start -->
+      <div class="fashion_section" style="background-image: url(C:\Users\user\Downloads\wal.jpg);">
+         <div id="main_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <div class="container" >
+                     <h1 class="fashion_taital" style="color: rgb(178, 119, 179);"></h1>
+                     <div class="fashion_section_2">
+                        <div class="row">
+                           {% for x in use %}
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                
+                                 {% comment %} {% if x.proimg %} {% endcomment %}
+                                 <div class="tshirt_img"><img src="{{x.images1.url}}"></div>
+                                 {% comment %} {% endif %} {% endcomment %}
+                                 <h4 class="shirt_text">{{x.product_name}}</h4>
+                                 <p >{{x.price}} <span style="color: #262626;"></span></p>
+                                 <p >{{x.description }} <span style="color: #050000;"></span></p>
+                                 <div class="btn_main" >
+                                    <div class="buy_bt" ><a href="#" style="color:black;">Buy Now</a></div>
+                                    <div class="seemore_bt" ><a href="{% url 'shopdetails' x.id %}">See More</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           
+                           {% endfor %} 
+                        </div>
+                     </div>
+                  </div>
+               
+              
+    
+      {% endblock content %}
+      

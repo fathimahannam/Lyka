@@ -1,0 +1,93 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block text %}
+
+
+
+{% comment %} <div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Edit Category</h5>
+        <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    
+
+                    
+                    <input type="hidden" id="slug" name="slug" value="{{ slug }}">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <textarea name="desc" class="form-control" placeholder="Category name" required></textarea>
+                      </div>
+                    </div>
+                
+                
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>image</label>
+                            <input type="file" name="image1" class="form-control" required>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="desc" class="form-control" placeholder="write description here" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+
+
+
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Edit Category</h5>
+        <div class="container-fluid">
+            <form action="{% url 'updatecategory' category.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Category name</label>
+                            {{ form.category_name }}
+                        </div>
+                    </div>
+
+                    {% comment %} <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Slug</label>
+                            {{ form.slug }}
+                        </div>
+                    </div> {% endcomment %}
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>category Image</label>
+                            {{ form.cat_image }}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            {{ form.description }}
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock text %}

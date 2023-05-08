@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<br><br><br><br><br>
+
+<!-- OTP Verification-->
+{% if otp %}
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <br><br><br><br><br><br><br><br> 
+                    {% for message in messages %}
+                    <div class="alert alert-warning col-8 shadow mx-auto text-danger" role="alert">
+                      {{message}}
+                    </div>
+                      {% endfor %}
+
+                      <br>
+                    <h3>OTP Verification</h3>
+                    <div style="text-align: center;">
+                    <form  action="" method="post"  >
+                        {% csrf_token %}
+                  
+                  <div class="form-group">
+                    <input type="hidden" name="usr" value="{{usr.username}}">
+                  </div>
+                  <div class="col-md-12 form-group" style="max-width:300px; margin-left:115px">
+                    <input type="text" class="form-control" id="name" name="otp" placeholder="Enter Your OTP" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Your OTP'">
+                  </div>
+                <div class="col-md-6 form-group" style=" margin-left:135px">
+                    <button type="submit" value="submit" class="primary-btn border-0 btn-sm margin-left:60px">Verify</button>
+                </div>    
+            
+                             
+          <div class="row justify-content-center my-2 px-5">
+           <i>
+            <a href="{% url 'register' %}?username={{ usr.username }}" class="text-dark"
+            onclick="ReSendOTP('{{ usr.username }}', 'resendOTPmess')">
+          <i id="resendOTPmess">Resend</i> OTP
+         </a>
+          </i> 
+                </div>
+              </form>
+            </div>
+            </div>
+          </div>
+          </div>
+        </div>
+    </div>
+</section>
+  <!-- End OTP Verification-->
+
+       {%else%}
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row ">
+            
+            </div>
+            <div class="col-lg-6" style="padding-left: 200px;"
+                <div class="login_form_inner">
+                  {% for message in messages %}
+                  <div class="alert alert-warning col-8 shadow mx-auto text-danger" role="alert">
+                    {{message}}
+                  </div>
+                    {% endfor %}
+                   <div style="text-align: center;">
+                    <h3>Sign up</h3></div>
+                    <form  action="" method="post"  >
+                        {% csrf_token %}
+                        
+                        <div class="col-md-12 form-group">
+                            {{form.username}}
+                          </div>
+                          <div class="col-md-12 form-group">
+                            {{form.email}}
+                          </div>
+                          <div class="col-md-12 form-group">
+                            {{form.password1}}
+                          </div>
+                          <div class="col-md-12 form-group">
+                            {{form.password2}}
+                        </div>
+                        
+                        <div class="col-md-12 form-group" style="text-align: center;">
+                        
+                            <button type="submit"  value="submit" class="btn btn-secondary btn-sm">Sign up</button>
+                          </div>
+    
+                    </form>
+  
+                         
+                      
+                      
+                      
+                    
+  
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+
+  {%endif%}  
+
+<!--================End Login Box Area =================-->
+
+<br><br><br><br><br>
+{% endblock content %}
+

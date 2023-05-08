@@ -1,0 +1,20 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block text %}
+<div class="container">
+    <div class="card p-5 my-5">
+    
+      <h1 class="mb-4">Delete Coupon?</h1>
+      <p class="lead mb-5">Are you sure you want to delete "{{ coupon.name }}"?</p>
+      
+      <form method="post">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-danger mr-3" type="submit">Yes, delete it</button>
+          <a class="btn btn-secondary" href="{% url 'coupon_list' %}">No, cancel</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  {% endblock %}

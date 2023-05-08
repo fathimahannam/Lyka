@@ -1,0 +1,83 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block text %}
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  td img {
+    width: 50px;
+    height: 50px;
+  }
+  .btn-edit {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+  .btn-delete {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+  .center {
+    text-align: center;
+  }
+</style>
+<form action="{% url 'CatSearch' %}" method="GET" class="form-inline">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search..." name="keyword">
+    <div class="input-group-append">
+    <button type="submit" class="btn btn-danger">Submit</button>
+    </div>
+    
+  </div>
+  </form>
+<br>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in cat %}
+      <tr>
+        <td><img src="{{ x.cat_image.url }}" alt="Category 1"></td>
+        <td>{{ x.category_name }}</td>
+        <td class="center">
+          <a href="{% url 'updatecategory' x.id %}">
+            <button class="btn-edit">Edit</button>
+          </a>
+          <a href="{% url 'deletecategory' x.id %}" onclick="return confirm('Are You Sure?')">
+            <button class="btn-delete">Delete</button>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+
+{% endblock %}
+

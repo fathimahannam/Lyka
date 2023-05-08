@@ -1,0 +1,474 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Shopping Cart Section Begin -->
+<style>
+.shopping-cart {
+  background-color: #f7f7f7;
+  padding: 60px 0;
+}
+
+.shopping_cart_table {
+  margin-bottom: 30px;
+}
+
+.shopping_cart_table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.shopping_cart_table th, 
+.shopping_cart_table td {
+  border: none; /* Remove the border */
+  text-align: left;
+  padding: 10px;
+}
+
+.shopping_cart_table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.product_cart_item {
+  display: flex;
+  align-items: center;
+}
+
+.product_cartitem_pic img {
+  width: 100%;
+  max-width: 150px;
+}
+
+.product_cartitem_text {
+  margin-left: 20px;
+}
+
+.cart__close {
+  text-align: center;
+}
+
+.cart__close .delete-cart-btn {
+  color: #333;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+}
+
+.cart__close .delete-cart-btn:hover {
+  color: #f00;
+}
+
+.cart__close .delete-cart-btn:after {
+  content: "\f00d";
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.qty {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 0;
+}
+
+.continue_btn {
+  text-align: right;
+}
+
+.update_btn {
+  text-align: left;
+}
+
+.cart__discount {
+  margin-bottom: 30px;
+}
+
+.cart__discount h6 {
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.cart__discount form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart__discount input[type=text] {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.cart__discount button[type=submit] {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.messages {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.messages li {
+  margin-bottom: 10px;
+}
+
+.messages .error {
+  color: #f00;
+}
+
+.tp_btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0;
+}
+
+.tp_btn:hover {
+  background-color: #f00;
+}
+
+</style>
+<section class="shopping-cart spad">
+    <div class="container">
+        {% if cart is None %}
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h3> No items in your cart</h3>
+            </div>
+        </div>
+        {% else %}
+
+        
+        
+
+        <div class="row">
+
+            <div class="col-lg-8" >
+                <div class="shopping_cart_table" >
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Products</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th style="padding-left: 60px;">action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for x in cart_items %}
+                            <tr>
+                                <td class="product_cart_item">
+                                    <div class="product_cartitem_pic" style="width: 150px;">
+                                        <img src="{{x.product.images1.url}}" alt="">
+                                    </div>
+                                    <div class="product_cartitem_text">
+                                        <h6>{{x.product.product_name}}</h6>
+                                        <h5>{{pro.product_name}} </h5>
+                                    </div>
+                                </td>
+                                
+                                <td>
+                                  
+                                   <div class="input-group mb-3 d-flex justify-content-center">
+                                   <form action="{% url 'remove_from_cart' x.product.id %}" style="margin: 0; width: 20%!important;" class="w-25"  method='POST'>
+                                        {% csrf_token %}
+                                        <button type='submit' class="btn btn-outline-secondary" type="button" id="button-addon1" field='quantity' >-</button>
+                                    </form> 
+
+                                    <input readonly type='text' name='quantity' value='{{x.quantity}}' class='qty w-25 border rounded py-0' />
+
+                                  
+
+                                    <form class="w-25"  method='POST'  action="{% url 'add_to_cart' x.product.id %}">
+                                        {% csrf_token %}
+                                        <button type='submit' class="btn btn-outline-secondary" type="button" id="button-addon1" field='quantity' >+</button>
+                                      </form>
+                                   </div>                                      
+                                </td>
+                               
+                                
+
+                                <td class="cart__price">Rs.{{x.product.price}}</td>
+                                <td class="cart__close"><a href="{% url 'remove_cartitem' x.product.id %}" class="delete-cart-btn">
+                                  <button class="btn btn-danger"><i class="fa fa-close"></i> Delete from Cart</button>
+                                </a></td>
+                                
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="row" style="background-color: transparent;">
+                    <div class="col-lg-6 col-md-6 col-sm-6" style="background-color: transparent;">
+                        <div class= style="background-color: transparent;">
+                            
+                          <a href="{url 'shop' %}">Continue Shopping</a><br><br><br>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6" style="background-color: transparent;">
+                        <div class="continue_btn update_btn" style="background-color: transparent;">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4" style="background-color: transparent;">
+
+                {% comment %} <div class="cart__discount" style="background-color: transparent;">
+                    <h6>Discount codes</h6>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if cart.coupon %}
+                        <input type="text" name="coupon" placeholder="Coupon code">
+                        <button style="background-color: transparent;" type="submit">Apply</button>
+                        {% endif %}
+                    </form>
+                </div> {% endcomment %}
+
+                <form method="post" style="background-color: transparent;">
+
+                    {% csrf_token %}
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    {% if cart.coupon %}
+                    <br>
+                    <a style="background-color: transparent;" class="tp_btn" href="{% url 'remove_coupon' %}">Applied coupon (tap to remove)</a>
+
+                    <a href="{% url 'remove_coupon' %}" class="btn btn-success">{{cart.coupon.discount_price}} off is
+                        applied on product</a>
+                    {% else %}
+
+                    <input type="text" name="coupon" placeholder="Enter coupon code" />
+
+<button type="submit" class="tp_btn" style="background-color: #4CAF50; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 20px; transition: background-color 0.3s;">
+  Apply Coupon
+</button>
+
+<!-- <button type="button" class="tp_btn" data-toggle="modal" data-target="#coupon-{{forloop.counter}}" style="background-color: #4CAF50; border: none; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 20px; transition: background-color 0.3s;">
+  View Coupon
+</button> -->
+
+
+                    {% endif %}
+                </form>
+
+                <div class="cart__total" style="background-color: transparent;">
+                  <h4 style="font-weight: bold;">Cart total</h4>
+                  <ul>
+                      <!-- <li style="font-weight: bold;">Subtotal <span style="font-weight: bold; font-size: 1.2em;"></span></li> -->
+                      {% if cart.coupon %}
+                      <li>Discount <span style="font-weight: bold; font-size: 1.2em;">Rs.{{cart.coupon.discount_price}}</span></li>
+                      {% else %}
+                      <li>Discount <span style="font-weight: bold; font-size: 1.2em;">Rs.00</span></li>
+                      {% endif %}
+                      <li style="font-weight: bold;">Total <span style="font-weight: bold; font-size: 1.2em;">Rs.{{cart.get_cart_total}}</span></li>
+                  </ul>
+                  <a href="{% url 'checkout' %}" class="btn btn-secondary btn-lg" style="margin-left: 30px;">Proceed to checkout</a>
+              </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+<style>
+
+.cart__container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.cart__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.cart__header h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.cart__items {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.cart__item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cart__item-image {
+  max-width: 150px;
+}
+
+.cart__item-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.cart__item-quantity {
+  display: flex;
+  align-items: center;
+}
+
+.cart__item-quantity input {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.cart__item-remove {
+  font-size: 18px;
+  color: red;
+  cursor: pointer;
+}
+
+.cart__coupon {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cart__coupon-input {
+  width: 200px;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.cart__coupon-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cart__coupon-button:hover {
+  background-color: #2E8B57;
+}
+
+.cart__coupon-applied {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cart__coupon-message {
+  font-size: 16px;
+  margin: 0;
+}
+
+.cart__coupon-remove {
+  margin-left: 10px;
+  font-size: 16px;
+  color: red;
+  cursor: pointer;
+}
+
+.cart__total {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.cart__total h4 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+.cart__total ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cart__total li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.cart__total li span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+</style>
+<style>
+form{
+    padding: 0!important;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px!important;
+}	
+</style>
+
+<script>
+        $('.quantity').on('click', '.plus', function(e) {
+            let $input = $(this).prev('input.qty');
+            let val = parseInt($input.val());
+            $input.val( val+1 ).change();
+        });
+ 
+        $('.quantity').on('click', '.minus', 
+            function(e) {
+            let $input = $(this).next('input.qty');
+            var val = parseInt($input.val());
+            if (val > 0) {
+                $input.val( val-1 ).change();
+            } 
+        });
+</script>
+<!-- Shopping Cart Section End -->
+
+{% endblock content %}
+      

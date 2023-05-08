@@ -1,0 +1,48 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block text %}
+
+
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Edit Product</h5>
+        <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    
+
+                    
+                    <input type="hidden" id="slug" name="slug" value="{{ slug }}">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Product Price</label>
+                            <input type="number" name="price" class="form-control" placeholder="Product Price" required>
+                        </div>
+                    </div>
+                
+                
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Product Image 1</label>
+                            <input type="file" name="image1" class="form-control" required>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="desc" class="form-control" placeholder="write description here" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock text %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="fashion_section" style="background-image: url(C:\Users\user\Downloads\wal.jpg);">
+    <div id="main_slider" class="carousel slide" data-ride="carousel">
+       <div class="carousel-inner">
+          <div class="carousel-item active">
+             <div class="container" >
+                <h1 class="fashion_taital" style="color: rgb(178, 119, 179);"></h1>
+                <div class="fashion_section_2">
+                   <div class="row">
+                      {% for x in pro %}
+                      <div class="col-lg-4 col-sm-4">    
+                         <div class="box_main">
+                           
+                            {% comment %} {% if x.proimg %} {% endcomment %}
+                            <div class="box_img"><img class="small_img" src="{{x.images1.url}}"></div>
+                            {% comment %} {% endif %} {% endcomment %}
+                            <h4 class="shirt_text">{{x.product_name}}</h4>
+                            <p >{{x.price}} <span style="color: #262626;"></span></p>
+                            <p >{{x.description }} <span style="color: #050000;"></span></p>
+                            
+                            <div class="btn_main" >
+                              <div><i class="bi bi-bag-heart-fill"></i></div>
+                               <div class="buy_bt" ><a href="#" style="color:black;">Buy Now</a></div>
+                               <div class="buy_bt" ><a href="{% url 'add_wishlist' x.id %}" style="color:black;"> wishlist</a></div>
+                         
+                               <div class="seemore_bt" ><a href="{% url 'shopdetails' x.id %}">See More</a></div>
+                            </div>
+                         </div>
+                      </div>
+                     
+                      {% endfor %} 
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ {% endblock%}

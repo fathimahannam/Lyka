@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="container m-t-20 mb-5">
+    <div class="row d-flex cart align-items-center justify-content-center">
+        <div class="col-md-10">
+            <div class="bread-crumb flex-w p-r-15 p-t-2 mb-2 p-lr-0-lg">
+                
+            </div>
+
+            <div class="card m-2">
+                <div class="row g-0">
+                    <div class="col-md-12 border-right p-5">
+                        <div class="text-center order-details">
+                            <span class="font-weight-bold fs-25">Order Placed Successfully</span><br><br><br>
+                            <div class="d-flex justify-content-center mb-5 flex-column align-items-center">
+                                <span class="check1"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAYFBMVEX///9BrUkxqTs3qkCOy5I5q0KZ0J2Lyo/0+vSc0aD6/fpmu2w8q0T9//1bt2IuqDjo9elqvXC43rtMsVNTtFrm9Oez3LZiumhIsFAopjNsvXIqpzS74L6SzJUbpCjB4sOWpVrkAAAEW0lEQVR4nO2bi3baMBBEgTRpYkxJaQqlTZv//8ta+BHjpx4raXbPzgcI3zMzWpljbTYqlUqlUqlUKpVKpVKpVCqValXPr7mfILKKSykbsbg8lD8kIx72D9tt+SYXsTCAFeIvqYgNYIW4lYl4uDSAFaLILh72HaBMxOLSA5QY1GJ/ByhvuzkMAaUFdeSgNMRJQEldPFwmAeW4ONFBWYgzEZWzoy4CSujibAelBHWhgzIQizUHuQfVCpDzdmMRUd5BXdlF+btoGdEGkeE/cKtjYhjUn7mf2FHWHfxE5OWiQwc7RFZDwwOQF6JzRBtENl30BOQzNLwi2iCyGBoBgMZF/KB6R7RBhO9ikIMcXHQ6qk3r+JIbYkmOR7Up7b7khlhSYAdvgF9zQyyJIKLYDgZvMuiAFBEVD4jdQemAOia4A4rfRbWD3B2UPyYIHMQGlL7J6JiwABQfUWhA8RHVMcHdQe0gdwe1g+wBNaLMAcXvouIB9Y2eu4Pid1H5HZTuoHaQOyBSRN+fiRbqCwnwfP1Gj4g0Js7H7eMbNSJSB8+7arVHahexHNzSI34HcvDarEgZVKR/1W4RpUaE2mR2vVWpggo1Jo5369IgHpA6+GewMkVQCyTA3WjtcBehIjoGJEAEcvB0nVw/LKhIu+jpOPMLIYhIHTxNRbRB9A8qBwdDEJHGxEwHO0SvoCK9TSxE1B+RwkGyiK4BegUVCXCpg76IUB20AXQNKpMxMUB0cRFpTNgCOiEiObg8JgaIlkFlcVQLQaToYIaINog2QUUCdHPQDhFqTLh0sENcCSrLMeGCyOyoNoO4FFQgwPfhn04OiLMuQjnovsmsIwroYIc4HVSgQf8eBjiD+BvHwc1TSEZrxFFQkY5qlV5CTRwhIm0yNWK4i/dBRQMkCWoPEemo9olIGFSkMdETXRfhOtiKLKhIY4IcsXIR6YV3JIqgvuI6SINYlmUwYNTPKcODGqzYXxuGDw1wQIqghgEm+OI3/AAHDpi1i6m++M3WxXSfNGfqYsqv7rMENe1H6RmCmvreRPKgpr9WkHho5Lj5krSLeS6GJOxirpsvybqY73JWoqDmvH2WBDHv9boEQc19+yw6Yv4LkpGDmtvBG2JMF/M7aBQxqBiAEQ9wKIDRuojQwVZRuogEGKWLOBGtRR5UNEByRDxA4qBidbAVISKig0ZkQcV00IhoaOACEgUVNaK1CA5w2IAEXUQHDO4icgdbBXUR30GjgKBycNDIO6g8HDTyDCoXB428EPk4aOTRRU4OGjl3kRugc1B5RbSWU1A5Ajoh8gR0CCq/DrayROTqoJFVUPk6aGQxNDg7aLQaVO6Aq2/9/AFXusi7g60WuigDcKGLEiJaayaoUhw0mkSU46DRRBclOWg06qIsB40GQZXmoNFdUOU5aNQL6u5v7oeJo+4AJxWw6+JRLGDTRZkdbFV1UW5Eaz39Ew642XzkfgCVSqVSqVQqlUqlUqlUKpUqn/4D4xZUUMVXLPUAAAAASUVORK5CYII=" style="width:80px;height:80px;"alt=""></span><br>
+                                <span class="font-weight-bold fs-20">Thank you for your purchase!</span>
+                                <small class="mt-2 fs-15">Your order ID is : {{order_id}} </small>
+                            </div>
+                            <a href="{% url 'index' %}" class="btn btn-danger order-button">CONTINUE SHOPPING</a>
+                            {% comment %} <a href="{% url 'orderlist' %}" class="btn btn-danger order-button">Track Your Order</a> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
