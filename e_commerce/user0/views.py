@@ -533,7 +533,7 @@ def checkout(request):
     
     
     # render the checkout page template with the context data
-    
+  
     return render(request, 'checkout.html', locals())
 
 
@@ -715,11 +715,15 @@ def delete_coupon(request, pk):
     context = {'coupon': coupon}
     return render(request, 'coupon_confirm_delete.html', context)
 
-def order_items(request,id):
-    order = Order.objects.get(user=request.user, id=id)
+def order_items(request,order_id):
+    print(order_id,'---------its order id--------------------------')
+    order = Order.objects.get(user=request.user, order_id=order_id)
     ordered_items = OrderItem.objects.filter(order=order).order_by('-id')
+    
+    
+
     context = {
-        'orders' : order,
+        'order' : order,
         'ordered_items' : ordered_items
     }
 
@@ -729,16 +733,24 @@ def order_items(request,id):
 
 def order_details(request,order_id):
     try:
-        order = Order.objects.get(uid=order_id)
+        order = Order.objects.get(order_id=order_id)
         order_items = OrderItem.objects.filter(order=order)
         print(order_items)
     except:
         order_items = None
         
-    return render(request, 'vieworder.html', {'order_items' : order_items})
+    return render(request, 'vieworder.html', {'order_items' : order_items,'order':order})
 
 
-def invoice(request):
+def invoice(request,order_id):
+    order =Order.objects.filter(order_id=order_id,user=request.user).first()
+    orderitems = OrderItem.objects.filter(order=order)
+    orders = Order.objects.filter(user=request.user)
 
+    context={
+        'order': order,
+        'orderitems':orderitems,
+        'ord':orders
+    }
 
-    return render(request,'invoice.html')
+    return render(request,'invoice.html',context)

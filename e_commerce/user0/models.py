@@ -151,3 +151,18 @@ class OrderItem(models.Model):
 
     def _str_(self):
         return self.product.product_name
+
+class OrderProduct(models.Model):
+    order = models.ForeignKey(Order,on_delete=models.CASCADE,related_name='user_order_page')
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
+    product = models.ForeignKey(products1,on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    product_price = models.FloatField()
+    ordered = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.product.name
+    def sub_total(self):
+        return self.product.price * self.quantity

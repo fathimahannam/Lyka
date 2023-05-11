@@ -26,12 +26,10 @@
                                 <div class="card-body d-flex justify-content-between" >
                                     <input id="{{x.id}}" name="address" onclick="changeAddress(this)" type="radio" value="{{x.id}}" required   >
                                     <div style="display: flex; justify-content:space-between ;" >
-                                        <p>{{ address.first_name }},&nbsp;</p>
-                                        <p>{{ x.x_line_1 }}</p>
-                                        <p>{{ x.order_x }} ,&nbsp;</p>
-                                        <p>{{ x.city }} ,&nbsp; {{ x.state }},&nbsp;</p>  
-                                        <p>{{ x.phone }},&nbsp;</p>
-                                        <p>{{ x.zip_code }},&nbsp;</p>
+                                        <p>{{x.first_name }},{{ x.x_line_1 }},{{ x.order_x }} ,
+                                        {{ x.city }} , {{ x.state }},
+                                        {{ x.phone }},
+                                        {{ x.zip_code }}</p>
                                     </div>
                                 </div>
                             </div>
